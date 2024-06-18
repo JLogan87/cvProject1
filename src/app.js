@@ -17,3 +17,30 @@ function moveBackward() {
 }
 
 displayDate();
+
+function displayTimeInCapitals() {
+  const cities = [
+      { name: 'London', timeZone: 'Europe/London' },
+      { name: 'New York', timeZone: 'America/New_York' },
+      { name: 'Tokyo', timeZone: 'Asia/Tokyo' },
+      { name: 'Sydney', timeZone: 'Australia/Sydney' }
+      // Add more cities as needed
+  ];
+
+  const now = new Date();
+
+  let output = '<h2>Current Times:</h2>';
+
+  cities.forEach(city => {
+      const timeString = now.toLocaleTimeString('en-US', {
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric',
+          timeZone: city.timeZone
+      });
+
+      output += `<p>${city.name}: ${timeString}</p>`;
+  });
+
+  document.getElementById('time-display').innerHTML = output;
+}
