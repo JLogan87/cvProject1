@@ -1,0 +1,23 @@
+{
+  "name": "cvproject1",
+  "version": "1.0.0",
+  "description": "cvProject1",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hippo-Cheese/cvproject1"
+  },
+  "author": "James Logan",
+  "license": "ISC",
+  "keywords": [
+    "cv",
+    "project"
+  ],
+  "dependencies": {},
+  "homepage": "https://github.com/Hippo-Cheese/cvproject1#readme"
+}
