@@ -14,7 +14,17 @@
     <button onclick="moveBackward()">Move backward one day</button>
 
     <div id="time-display"></div>
-    <button onclick="displayTimeInCapitals()">Display Current Time</button>
+    
+
+    <button onclick="openModal()">View Other Cities</button>
+
+
+    <div id="myModal" class="modal">
+            <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="other-cities-times"></div>
+        </div>
+    </div>
 
 
     <script src="app.js"></script>
