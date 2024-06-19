@@ -57,6 +57,7 @@ function displayTimeInCapitals() {
 
 let selectedCity = null;
 let intervalID = null;
+let selectedDate = null;
 
 function updateClock() {
     const now = new Date();
@@ -87,6 +88,7 @@ function showTime(timeZone) {
         document.getElementById('clock').textContent = `${cityName}: ${timeString}`;
     }, 1000);
 }
+
 function createCalendar() {
     const calendar = document.getElementById('calendar');
     calendar.innerHTML = '';
@@ -99,15 +101,39 @@ function createCalendar() {
         const dayElement = document.createElement('div');
         dayElement.className = 'day';
         dayElement.textContent = day;
-        dayElement.onclick = () => fetchFact(day, month + 1, year);
+        dayElement.onclick = () => selectDate(day, month + 1, year);
         calendar.appendChild(dayElement);
     }
 }
 
-function fetchFact(day, month, year) {
+function selectDate(day, month, year) {
+    selectedDate = { day, month, year };
+    updateSelectedDateUI();
+}
+
+function updateSelectedDateUI() {
+    if (selectedDate) {
+        const { day, month, year } = selectedDate;
+        document.getElementById('calendar').querySelectorAll('.day').forEach(dayElement => {
+            const dayNum = parseInt(dayElement.textContent);
+            if (dayNum === day) {
+                dayElement.classList.add('selected');
+            } else {
+                dayElement.classList.remove('selected');
+            }
+        });
+    }
+}
+
+function fetchFact() {
+    if (!selectedDate) {
+        alert('Please select a date from the calendar.');
+        return;
+    }
+
+    const { day, month, year } = selectedDate;
     const factDiv = document.getElementById('fact');
     factDiv.textContent = 'Loading...';
-    const dateStr = `${month}_${day}`;
 
     fetch(`https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/${month}/${day}`)
         .then(response => response.json())
@@ -125,8 +151,6 @@ function fetchFact(day, month, year) {
         });
 }
 
-// Initial call to display the local clock immediately
+// Initial setup
 updateClock();
 createCalendar();
-// Update the local clock every second
-setInterval(updateClock, 1000);
