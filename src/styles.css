@@ -1,39 +1,59 @@
-#clock {
-    font-size: 3em;
-    font-family: 'Arial', sans-serif;
-    text-align: center;
-    margin-top: 20%;
-}
-
-#buttons {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-button {
-    font-size: 1em;
-    margin: 0 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
-#calendar {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
+body {
+    font-family: Arial, sans-serif;
     padding: 20px;
-    justify-content: center;
+}
+
+#time-display {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#clock {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#date-picker {
+    margin-bottom: 20px;
+}
+
+#calendar {
+    margin-bottom: 10px;
 }
 
 .day {
-    padding: 10px;
-    border: 1px solid #ccc;
+    display: inline-block;
+    width: 80px;
+    padding: 5px;
     text-align: center;
     cursor: pointer;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #f0f0f0;
 }
 
-#fact {
+.day.selected {
+    background-color: #c0c0c0;
+}
+
+.content {
+    margin-top: 5px;
+}
+
+.fact {
+    margin-top: 5px;
+}
+
+#other-cities-times {
     margin-top: 20px;
-    text-align: center;
-    font-size: 1.2em;
+}
+
+#other-cities-times h2 {
+    font-size: 18px;
+}
+
+#other-cities-times p {
+    margin: 5px 0;
 }

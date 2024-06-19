@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JavaScript Time Machine</title>
+    <title>Date Picker with World Times and Fact Fetcher</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="clock">Loading...</div>
-    <div id="buttons">
-        <button onclick="showTime('Europe/London')">London</button>
-        <button onclick="showTime('Asia/Tokyo')">Tokyo</button>
-        <button onclick="showTime('America/New_York')">New York</button>
-        <button onclick="showTime('Asia/Pyongyang')">Pyongyang</button>
+    <div id="time-display"></div>
+    <div id="other-cities-times"></div>
+
+    <div id="date-picker">
+        <label for="day">Day:</label>
+        <select id="day"></select>
+
+        <label for="month">Month:</label>
+        <select id="month" onchange="updateDays()"></select>
+
+        <label for="year">Year:</label>
+        <select id="year" onchange="updateDays()"></select>
+                
+        <button onclick="fetchFact()">Fetch Fact</button>
     </div>
-    <div id="calendar"></div>
+
     <div id="fact"></div>
+
     <script src="script.js"></script>
 </body>
 </html>

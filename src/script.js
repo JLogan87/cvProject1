@@ -1,137 +1,84 @@
-const currentDate = new Date();
-const timeZones = {
-    "London": 0,          // UTC+0
-    "Tokyo": 9,           // UTC+9
-    "New York": -4,       // UTC-4 (Eastern Daylight Time)
-    "Pyongyang": 9        // UTC+9 (Pyongyang Time)
-};
+// Get references to the select elements
+const daySelect = document.getElementById('day');
+const monthSelect = document.getElementById('month');
+const yearSelect = document.getElementById('year');
 
-function displayDate() {
-    const dateDisplay = document.getElementById('time-display');
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
-    dateDisplay.innerText = currentDate.toLocaleString('en-US', options);
+// Function to populate the day dropdown based on selected month and year
+function populateDays() {
+    daySelect.innerHTML = ''; // Clear existing options
 
-    // Update world cities times when date changes
-    displayTimeInCapitals();
-}
+    const selectedMonth = monthSelect.value;
+    const selectedYear = yearSelect.value;
 
-function moveForward() {
-    currentDate.setDate(currentDate.getDate() + 1);
-    displayDate();
-}
-
-function moveBackward() {
-    currentDate.setDate(currentDate.getDate() - 1);
-    displayDate();
-}
-
-
-
-// Function to display times of world cities
-function displayTimeInCapitals() {
-    const cities = [
-        { name: 'London', timeZone: 'Europe/London' },
-        { name: 'New York', timeZone: 'America/New_York' },
-        { name: 'Tokyo', timeZone: 'Asia/Tokyo' },
-        { name: 'Sydney', timeZone: 'Australia/Sydney' }
-        // Add more cities as needed
-    ];
-
-    let output = '<h2>Current Times:</h2>';
-
-    cities.forEach(city => {
-        const cityDate = new Date(currentDate.toLocaleString('en-US', { timeZone: city.timeZone }));
-        const timeString = cityDate.toLocaleTimeString('en-US', {
-            hour: 'numeric',
-            minute: 'numeric',
-            second: 'numeric',
-            timeZone: city.timeZone
-        });
-
-        output += `<p>${city.name}: ${timeString}</p>`;
-    });
-
-    // Display in modal window
-    document.getElementById('other-cities-times').innerHTML = output;
-}
-
-let selectedCity = null;
-let intervalID = null;
-let selectedDate = null;
-
-function updateClock() {
-    const now = new Date();
-    const timeString = now.toLocaleTimeString('en-GB', { hour12: false });
-    if (!selectedCity) {
-        document.getElementById('clock').textContent = timeString;
-    }
-}
-
-function showTime(timeZone) {
-    if (intervalID) {
-        clearInterval(intervalID);
-    }
-    selectedCity = timeZone;
-    intervalID = setInterval(() => {
-        const now = new Date();
-        const options = {
-            timeZone: timeZone,
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: false
-        };
-        const formatter = new Intl.DateTimeFormat('en-GB', options);
-        const parts = formatter.formatToParts(now);
-        const timeString = parts.map(({ type, value }) => value).join('');
-        const cityName = timeZone.split('/')[1].replace('_', ' ');
-        document.getElementById('clock').textContent = `${cityName}: ${timeString}`;
-    }, 1000);
-}
-
-function createCalendar() {
-    const calendar = document.getElementById('calendar');
-    calendar.innerHTML = '';
-    const now = new Date();
-    const month = now.getMonth();
-    const year = now.getFullYear();
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
 
     for (let day = 1; day <= daysInMonth; day++) {
-        const dayElement = document.createElement('div');
-        dayElement.className = 'day';
-        dayElement.textContent = day;
-        dayElement.onclick = () => selectDate(day, month + 1, year);
-        calendar.appendChild(dayElement);
+        const option = document.createElement('option');
+        option.value = day;
+        option.textContent = day;
+        daySelect.appendChild(option);
     }
 }
 
-function selectDate(day, month, year) {
-    selectedDate = { day, month, year };
-    updateSelectedDateUI();
+// Function to populate the month dropdown
+function populateMonths() {
+    monthSelect.innerHTML = ''; // Clear existing options
+
+    const months = [
+        { value: 1, name: 'January' },
+        { value: 2, name: 'February' },
+        { value: 3, name: 'March' },
+        { value: 4, name: 'April' },
+        { value: 5, name: 'May' },
+        { value: 6, name: 'June' },
+        { value: 7, name: 'July' },
+        { value: 8, name: 'August' },
+        { value: 9, name: 'September' },
+        { value: 10, name: 'October' },
+        { value: 11, name: 'November' },
+        { value: 12, name: 'December' }
+    ];
+
+    months.forEach(month => {
+        const option = document.createElement('option');
+        option.value = month.value;
+        option.textContent = month.name;
+        monthSelect.appendChild(option);
+    });
 }
 
-function updateSelectedDateUI() {
-    if (selectedDate) {
-        const { day, month, year } = selectedDate;
-        document.getElementById('calendar').querySelectorAll('.day').forEach(dayElement => {
-            const dayNum = parseInt(dayElement.textContent);
-            if (dayNum === day) {
-                dayElement.classList.add('selected');
-            } else {
-                dayElement.classList.remove('selected');
-            }
-        });
+// Function to populate the year dropdown with last 50 years
+function populateYears() {
+    yearSelect.innerHTML = ''; // Clear existing options
+
+    const currentYear = new Date().getFullYear();
+    const startYear = currentYear - 50;
+
+    for (let year = currentYear; year >= startYear; year--) {
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
     }
 }
 
+// Initial function to set up the date picker
+function setupDatePicker() {
+    populateDays(); // Populate days based on current selected month and year
+    populateMonths(); // Populate months
+    populateYears(); // Populate years
+
+    // Add event listeners to month and year selects to update days
+    monthSelect.addEventListener('change', populateDays);
+    yearSelect.addEventListener('change', populateDays);
+}
+
+// Function to fetch fact from Wikipedia based on selected date
 function fetchFact() {
-    if (!selectedDate) {
-        alert('Please select a date from the calendar.');
-        return;
-    }
+    const day = daySelect.value;
+    const month = monthSelect.value;
+    const year = yearSelect.value;
 
-    const { day, month, year } = selectedDate;
     const factDiv = document.getElementById('fact');
     factDiv.textContent = 'Loading...';
 
@@ -139,8 +86,14 @@ function fetchFact() {
         .then(response => response.json())
         .then(data => {
             if (data.events && data.events.length > 0) {
-                const event = data.events[0];
-                factDiv.innerHTML = `<h3>${event.year}: ${event.text}</h3><p><a href="https://en.wikipedia.org/wiki/${event.pages[0].normalizedtitle}" target="_blank">Read more</a></p>`;
+                // Filter events based on year to match the selected year
+                const event = data.events.find(event => event.year === year.toString());
+
+                if (event) {
+                    factDiv.innerHTML = `<h3>${event.year}: ${event.text}</h3><p><a href="https://en.wikipedia.org/wiki/${event.pages[0].normalizedtitle}" target="_blank">Read more</a></p>`;
+                } else {
+                    factDiv.textContent = 'No events found for this day.';
+                }
             } else {
                 factDiv.textContent = 'No events found for this day.';
             }
@@ -151,6 +104,32 @@ function fetchFact() {
         });
 }
 
+// Function to display current date and time in different cities
+function displayTimeInCapitals() {
+    const cities = [
+        { name: 'London', timeZone: 'Europe/London' },
+        { name: 'New York', timeZone: 'America/New_York' },
+        { name: 'Tokyo', timeZone: 'Asia/Tokyo' },
+        { name: 'Sydney', timeZone: 'Australia/Sydney' }
+    ];
+
+    let output = '<h2>Current Times:</h2>';
+
+    cities.forEach(city => {
+        const cityTime = new Date().toLocaleString('en-US', { timeZone: city.timeZone });
+        const timeString = new Date(cityTime).toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric'
+        });
+
+        output += `<p>${city.name}: ${timeString}</p>`;
+    });
+
+    document.getElementById('other-cities-times').innerHTML = output;
+}
+
 // Initial setup
-updateClock();
-createCalendar();
+setupDatePicker(); // Initialize date picker
+displayTimeInCapitals(); // Display current times in world cities
+setInterval(displayTimeInCapitals, 60000); // Update city times every minute
