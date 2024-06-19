@@ -1,4 +1,3 @@
-// Get references to the select elements
 const daySelect = document.getElementById('day');
 const monthSelect = document.getElementById('month');
 const yearSelect = document.getElementById('year');
@@ -22,21 +21,19 @@ function populateDays() {
 
 // Function to populate the month dropdown
 function populateMonths() {
-    monthSelect.innerHTML = ''; // Clear existing options
-
     const months = [
-        { value: 1, name: 'January' },
-        { value: 2, name: 'February' },
-        { value: 3, name: 'March' },
-        { value: 4, name: 'April' },
-        { value: 5, name: 'May' },
-        { value: 6, name: 'June' },
-        { value: 7, name: 'July' },
-        { value: 8, name: 'August' },
-        { value: 9, name: 'September' },
-        { value: 10, name: 'October' },
-        { value: 11, name: 'November' },
-        { value: 12, name: 'December' }
+        { value: '01', name: 'January' },
+        { value: '02', name: 'February' },
+        { value: '03', name: 'March' },
+        { value: '04', name: 'April' },
+        { value: '05', name: 'May' },
+        { value: '06', name: 'June' },
+        { value: '07', name: 'July' },
+        { value: '08', name: 'August' },
+        { value: '09', name: 'September' },
+        { value: '10', name: 'October' },
+        { value: '11', name: 'November' },
+        { value: '12', name: 'December' }
     ];
 
     months.forEach(month => {
@@ -49,8 +46,6 @@ function populateMonths() {
 
 // Function to populate the year dropdown with last 50 years
 function populateYears() {
-    yearSelect.innerHTML = ''; // Clear existing options
-
     const currentYear = new Date().getFullYear();
     const startYear = currentYear - 50;
 
@@ -62,18 +57,43 @@ function populateYears() {
     }
 }
 
-// Initial function to set up the date picker
+// Function to set up the date picker
 function setupDatePicker() {
-    populateDays(); // Populate days based on current selected month and year
-    populateMonths(); // Populate months
-    populateYears(); // Populate years
+    populateDays();
+    populateMonths();
+    populateYears();
 
-    // Add event listeners to month and year selects to update days
     monthSelect.addEventListener('change', populateDays);
     yearSelect.addEventListener('change', populateDays);
 }
 
-// Function to fetch fact from Wikipedia based on selected date
+// Function to fetch events from Wikipedia based on selected date
+function fetchWikipediaEvents(month, day) {
+    const clientId = 'bbf2ec37d3d486e416d6456c41fab1f9';
+    const clientSecret = 'f0878ef934618b83880f8785ac4ba38b05499889';
+
+    const url = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/${month}/${day}?client_id=${clientId}&client_secret=${clientSecret}`;
+
+    return fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.error) {
+                throw new Error(data.error.info);
+            }
+            return data;
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            throw new Error('Error fetching data from Wikipedia API');
+        });
+}
+
+// Function to fetch and display events on the selected date
 function fetchFact() {
     const day = daySelect.value;
     const month = monthSelect.value;
@@ -82,25 +102,23 @@ function fetchFact() {
     const factDiv = document.getElementById('fact');
     factDiv.textContent = 'Loading...';
 
-    fetch(`https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/${month}/${day}`)
-        .then(response => response.json())
+    fetchWikipediaEvents(month, day)
         .then(data => {
             if (data.events && data.events.length > 0) {
-                // Filter events based on year to match the selected year
                 const event = data.events.find(event => event.year === year.toString());
 
                 if (event) {
                     factDiv.innerHTML = `<h3>${event.year}: ${event.text}</h3><p><a href="https://en.wikipedia.org/wiki/${event.pages[0].normalizedtitle}" target="_blank">Read more</a></p>`;
                 } else {
-                    factDiv.textContent = 'No events found for this day.';
+                    factDiv.textContent = 'No events found for this day in the selected year.';
                 }
             } else {
                 factDiv.textContent = 'No events found for this day.';
             }
         })
         .catch(error => {
-            factDiv.textContent = 'Error fetching data.';
-            console.error(error);
+            factDiv.textContent = 'Error fetching data. Please try again later.';
+            console.error('Error fetching data:', error);
         });
 }
 
@@ -129,7 +147,7 @@ function displayTimeInCapitals() {
     document.getElementById('other-cities-times').innerHTML = output;
 }
 
-// Initial setup
-setupDatePicker(); // Initialize date picker
-displayTimeInCapitals(); // Display current times in world cities
+// Initialize setup
+setupDatePicker();
+displayTimeInCapitals();
 setInterval(displayTimeInCapitals, 60000); // Update city times every minute
