@@ -10,7 +10,7 @@ function fetchWikipediaEvents(month, day) {
         })
         .then(data => {
             if (data.error) {
-                throw new Error(data.error.info);
+                throw new Error(data.error.info || 'Unknown error');
             }
             return data;
         })
@@ -31,13 +31,22 @@ function fetchFact() {
         .then(data => {
             if (data.events && data.events.length > 0) {
                 const randomEvent = data.events[Math.floor(Math.random() * data.events.length)];
-                factDiv.innerHTML = `<h3>${randomEvent.year}: ${randomEvent.text}</h3><p><a href="https://en.wikipedia.org/wiki/${randomEvent.pages[0].normalizedtitle}" target="_blank">Read more</a></p>`;
+                const year = randomEvent.year || 'Unknown year';
+                const text = randomEvent.text || 'No event description available';
+                const title = randomEvent.pages && randomEvent.pages.length > 0 ?
+                    randomEvent.pages[0].normalizedtitle :
+                    '';
+                const link = title ?
+                    `<a href="https://en.wikipedia.org/wiki/${title}" target="_blank">Read more</a>` :
+                    '';
+
+                factDiv.innerHTML = `<h3>${year}: ${text}</h3><p>${link}</p>`;
             } else {
                 factDiv.textContent = 'No events found for this day.';
             }
         })
         .catch(error => {
+            console.error('Error fetching and displaying data:', error);
             factDiv.textContent = 'Error fetching data. Please try again later.';
-            console.error('Error fetching data:', error);
         });
 }

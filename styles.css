@@ -31,22 +31,160 @@ body {
     text-align: center;
 }
 
-/* Time display styles */
-#time-display {
-    font-size: 18px;
+/* Date picker styles */
+#date-picker {
+    margin-bottom: 20px;
+}
+
+#date-picker label {
+    display: inline-block;
+    width: 70px;
+    text-align: right;
+    margin-right: 10px;
+    color: #f0f0f0;
+    font-size: 1rem;
+}
+
+#date-picker select {
+    width: 100px;
+    padding: 8px;
+    font-size: 1rem;
+    margin-right: 10px;
+    border: 1px solid #ffffff;
+    background-color: #7b76c8;
+    color: #ffffff;
+}
+
+#date-picker button {
+    padding: 8px 20px;
+    background-color: #5f5aa2;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+#date-picker button:hover {
+    background-color: #4d478c;
+}
+
+/* Calendar styles */
+#calendar {
     margin-bottom: 10px;
 }
 
-#clock {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #f0f0f0;
+.day {
+    display: inline-block;
+    width: 80px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    background-color: #d1cfd4;
+    color: #5f5aa2;
+    font-size: 1rem;
+}
+
+.day.selected {
+    background-color: #5f5aa2;
+    color: #ffffff;
+}
+
+/* Fact display styles */
+#fact {
+    margin-top: 20px;
+    text-align: left;
+    padding: 15px;
+    background-color: #7b76c8;
+    border: 1px solid #ffffff;
+}
+
+#fact h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+#fact p {
+    font-size: 1.4rem;
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+#fact a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#fact a:hover {
+    text-decoration: underline;
+}
+
+/* Other cities times styles */
+#other-cities-times {
+    margin-top: 20px;
+    text-align: left;
+    padding: 15px;
+    background-color: #7b76c8;
+    border: 1px solid #ffffff;
+}
+
+#other-cities-times h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+#other-cities-times p {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+/* Body styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #5f5aa2;
+    color: #ffffff;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Adjust as needed */
+    width: 100%;
+    max-width: 900px; /* Adjust max-width to fit your layout */
+    margin-top: 20px; /* Space between Daily Information header and content */
+}
+
+#other-cities-times,
+#gameBoard {
+    width: calc(50% - 10px); /* Adjust width and spacing */
+    padding: 10px;
+    background-color: #7b76c8;
+    border: 1px solid #ffffff;
+}
+
+#other-cities-times {
+    margin-right: 10px;
+}
+
+#gameBoard {
+    margin-left: 10px;
 }
 
 /* Date picker styles */
 #date-picker {
-    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center; /* Adjust as needed */
 }
 
 #date-picker label {
@@ -82,29 +220,6 @@ body {
     background-color: #4d478c;
 }
 
-/* Calendar styles */
-#calendar {
-    margin-bottom: 10px;
-}
-
-.day {
-    display: inline-block;
-    width: 80px;
-    padding: 5px;
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    background-color: #d1cfd4;
-    color: #5f5aa2;
-}
-
-.day.selected {
-    background-color: #5f5aa2;
-    color: #ffffff;
-}
-
 /* Fact display styles */
 #fact {
     margin-top: 20px;
@@ -132,25 +247,4 @@ body {
 
 #fact a:hover {
     text-decoration: underline;
-}
-
-/* Other cities times styles */
-#other-cities-times {
-    margin-top: 20px;
-    text-align: left;
-    padding: 10px;
-    background-color: #7b76c8;
-    border: 1px solid #ffffff;
-}
-
-#other-cities-times h2 {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
-    color: #ffffff;
-}
-
-#other-cities-times p {
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    color: #ffffff;
 }
