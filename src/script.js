@@ -3,7 +3,7 @@ const monthSelect = document.getElementById('month');
 const yearSelect = document.getElementById('year');
 
 // Function to populate the day dropdown based on selected month and year
-function populateDays() {
+function updateDays() {
     daySelect.innerHTML = ''; // Clear existing options
 
     const selectedMonth = monthSelect.value;
@@ -59,20 +59,16 @@ function populateYears() {
 
 // Function to set up the date picker
 function setupDatePicker() {
-    populateDays();
     populateMonths();
     populateYears();
+    updateDays();
 
-    monthSelect.addEventListener('change', populateDays);
-    yearSelect.addEventListener('change', populateDays);
+    monthSelect.addEventListener('change', updateDays);
+    yearSelect.addEventListener('change', updateDays);
 }
 
-// Function to fetch events from Wikipedia based on selected date
 function fetchWikipediaEvents(month, day) {
-    const clientId = 'bbf2ec37d3d486e416d6456c41fab1f9';
-    const clientSecret = 'f0878ef934618b83880f8785ac4ba38b05499889';
-
-    const url = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/${month}/${day}?client_id=${clientId}&client_secret=${clientSecret}`;
+    const url = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/${month}/${day}`;
 
     return fetch(url)
         .then(response => {
@@ -97,7 +93,6 @@ function fetchWikipediaEvents(month, day) {
 function fetchFact() {
     const day = daySelect.value;
     const month = monthSelect.value;
-    const year = yearSelect.value;
 
     const factDiv = document.getElementById('fact');
     factDiv.textContent = 'Loading...';
@@ -105,13 +100,10 @@ function fetchFact() {
     fetchWikipediaEvents(month, day)
         .then(data => {
             if (data.events && data.events.length > 0) {
-                const event = data.events.find(event => event.year === year.toString());
-
-                if (event) {
-                    factDiv.innerHTML = `<h3>${event.year}: ${event.text}</h3><p><a href="https://en.wikipedia.org/wiki/${event.pages[0].normalizedtitle}" target="_blank">Read more</a></p>`;
-                } else {
-                    factDiv.textContent = 'No events found for this day in the selected year.';
-                }
+                factDiv.innerHTML = '';
+                data.events.forEach(event => {
+                    factDiv.innerHTML += `<h3>${event.year}: ${event.text}</h3><p><a href="https://en.wikipedia.org/wiki/${event.pages[0].normalizedtitle}" target="_blank">Read more</a></p>`;
+                });
             } else {
                 factDiv.textContent = 'No events found for this day.';
             }
