@@ -1,8 +1,37 @@
+/* Body styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #5f5aa2;
+    color: #ffffff;
+    margin: 0;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Header styles */
+#header {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#header h1 {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: #f0f0f0;
+}
+
+/* Main content styles */
+#main-content {
+    max-width: 600px;
+    width: 90%;
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Time display styles */
 #time-display {
     font-size: 18px;
     margin-bottom: 10px;
@@ -12,12 +41,48 @@ body {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: #f0f0f0;
 }
 
+/* Date picker styles */
 #date-picker {
     margin-bottom: 20px;
 }
 
+#date-picker label {
+    display: inline-block;
+    width: 70px;
+    text-align: right;
+    margin-right: 10px;
+    color: #f0f0f0;
+}
+
+#date-picker select {
+    width: 100px;
+    padding: 5px;
+    font-size: 1rem;
+    margin-right: 10px;
+    border: 1px solid #ffffff;
+    background-color: #7b76c8;
+    color: #ffffff;
+}
+
+#date-picker button {
+    padding: 8px 20px;
+    background-color: #5f5aa2;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+#date-picker button:hover {
+    background-color: #4d478c;
+}
+
+/* Calendar styles */
 #calendar {
     margin-bottom: 10px;
 }
@@ -31,29 +96,61 @@ body {
     border: 1px solid #ccc;
     margin-right: 5px;
     margin-bottom: 5px;
-    background-color: #f0f0f0;
+    background-color: #d1cfd4;
+    color: #5f5aa2;
 }
 
 .day.selected {
-    background-color: #c0c0c0;
+    background-color: #5f5aa2;
+    color: #ffffff;
 }
 
-.content {
-    margin-top: 5px;
+/* Fact display styles */
+#fact {
+    margin-top: 20px;
+    text-align: left;
+    padding: 10px;
+    background-color: #7b76c8;
+    border: 1px solid #ffffff;
 }
 
-.fact {
-    margin-top: 5px;
+#fact h3 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: #ffffff;
 }
 
+#fact p {
+    font-size: 1.2rem;
+    color: #ffffff;
+}
+
+#fact a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+#fact a:hover {
+    text-decoration: underline;
+}
+
+/* Other cities times styles */
 #other-cities-times {
     margin-top: 20px;
+    text-align: left;
+    padding: 10px;
+    background-color: #7b76c8;
+    border: 1px solid #ffffff;
 }
 
 #other-cities-times h2 {
-    font-size: 18px;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    color: #ffffff;
 }
 
 #other-cities-times p {
-    margin: 5px 0;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    color: #ffffff;
 }
