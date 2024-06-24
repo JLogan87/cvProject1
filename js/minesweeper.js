@@ -126,6 +126,4 @@ function renderBoard() {
     }
 }
 
-// Initialize the game board on page load
-initializeBoard();
-renderBoard();
+

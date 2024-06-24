@@ -166,6 +166,7 @@ body {
 }
 
 #other-cities-times,
+
 #gameBoard {
     width: calc(50% - 10px); /* Adjust width and spacing */
     padding: 10px;
@@ -247,4 +248,34 @@ body {
 
 #fact a:hover {
     text-decoration: underline;
+}
+/* Game Board Styles */
+#gameBoard {
+    display: grid;
+    grid-template-columns: repeat(10, 30px); /* 10 columns, each 30px wide */
+    grid-template-rows: repeat(10, 30px);    /* 10 rows, each 30px high */
+    gap: 2px;
+    background-color: #7b76c8;
+    border: 1px solid #ffffff;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+/* Game Cell Styles */
+.cell {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ffffff;
+    background-color: #5f5aa2;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.cell.revealed {
+    background-color: #ddd;
+    color: #000;
+    cursor: default;
 }
