@@ -135,8 +135,6 @@ function renderBoard() {
     }
 }
 
-
-
 function showModal(title, message) {
     const modal = document.getElementById('gameModal');
     const modalTitle = document.getElementById('modalTitle');
@@ -146,7 +144,13 @@ function showModal(title, message) {
     modalTitle.textContent = title;
     modalMessage.textContent = message;
 
-    modal.style.display = 'block';
+    modal.style.display = 'flex'; // Ensure modal display is set properly
+
+    // Center the modal vertically and horizontally
+    const topOffset = Math.max(window.innerHeight - modal.offsetHeight, 0) / 2;
+    const leftOffset = Math.max(window.innerWidth - modal.offsetWidth, 0) / 2;
+    modal.style.top = topOffset + 'px';
+    modal.style.left = leftOffset + 'px';
 
     modalCloseButton.addEventListener('click', () => {
         modal.style.display = 'none';
@@ -169,3 +173,4 @@ window.addEventListener('click', event => {
         modal.style.display = 'none';
     }
 });
+

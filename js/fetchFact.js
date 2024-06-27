@@ -1,3 +1,5 @@
+// fetch-data.js
+
 function fetchWikipediaEvents(month, day) {
     const url = `https://en.wikipedia.org/api/rest_v1/feed/onthisday/events/${month}/${day}`;
 
@@ -20,15 +22,18 @@ function fetchWikipediaEvents(month, day) {
         });
 }
 
-function fetchFact() {
-    const day = daySelect.value;
-    const month = monthSelect.value;
-
+function fetchFact(month, day) {
     const factDiv = document.getElementById('fact');
     factDiv.textContent = 'Loading...';
 
+    let fetchTimeout = setTimeout(() => {
+        factDiv.textContent = 'Loading took too long. Please try again.';
+    }, 10000); // Timeout after 10 seconds
+
     fetchWikipediaEvents(month, day)
         .then(data => {
+            clearTimeout(fetchTimeout); // Clear timeout once data is received
+
             if (data.events && data.events.length > 0) {
                 const randomEvent = data.events[Math.floor(Math.random() * data.events.length)];
                 const year = randomEvent.year || 'Unknown year';
@@ -46,6 +51,8 @@ function fetchFact() {
             }
         })
         .catch(error => {
+            clearTimeout(fetchTimeout); // Clear timeout in case of error
+
             console.error('Error fetching and displaying data:', error);
             factDiv.textContent = 'Error fetching data. Please try again later.';
         });
