@@ -11,11 +11,14 @@ function initialize() {
     // Update days based on selected month and year
     updateDays();
 
-    // Add event listener for the fetch fact button
-    const fetchFactButton = document.querySelector('#date-picker button');
-    if (fetchFactButton) {
-        fetchFactButton.addEventListener('click', fetchFact);
-    }
+
+// Assuming this is in your JavaScript file or script section
+const fetchFactButton = document.querySelector('#fetch-fact-button');
+if (fetchFactButton) {
+    fetchFactButton.addEventListener('click', fetchFact);
+}
+
+
 }
 
 // Ensure the DOM is fully loaded before initializing

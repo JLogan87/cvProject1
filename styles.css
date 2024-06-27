@@ -23,12 +23,19 @@ body {
     color: #f0f0f0;
 }
 
-/* Main content styles */
+/* Main content container */
 #main-content {
     max-width: 900px;
     width: 100%;
     margin-top: 20px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.1); /* Faded edge effect */
+    padding: 20px;
+    border-radius: 20px; /* Rounded corners */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 /* Date picker styles */
@@ -74,12 +81,18 @@ body {
 
 /* Fact display styles */
 #fact {
-    flex: 1 1 100%;
+    width: 100%; /* Span the width of the page */
+    max-width: 900px; /* Limit maximum width */
+    min-height: 100px; 
     margin-top: 20px;
     padding: 15px;
     background-color: #7b76c8;
     border: 1px solid #ffffff;
-    text-align: left;
+    text-align: center; /* Center the text */
+    overflow: auto; 
+    box-sizing: border-box; 
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 #fact h3 {
@@ -143,6 +156,10 @@ body {
     gap: 2px;
     background-color: #7b76c8;
     border: 1px solid #ffffff;
+
+    /* Centering the game board */
+    justify-self: center; /* Horizontally center within the parent container */
+    align-self: center;   /* Vertically center within the parent container */
 }
 
 /* Game Cell Styles */
@@ -168,8 +185,8 @@ body {
 .cell:hover {
     background-color: #4d478c;
 }
-/* Modal Styles */
-/* Modal Styles */
+
+/* Modal styles */
 .modal {
     display: none;
     position: fixed;
@@ -179,34 +196,35 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     justify-content: center;
     align-items: center;
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: auto;
+    background-color: #7b76c8; /* Match game board background color */
+    color: #ffffff;
     padding: 20px;
-    border: 1px solid #888;
+    border: 2px solid #ffffff;
     width: 80%;
     max-width: 400px;
     text-align: center;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
 }
 
 .close {
-    color: #aaa;
+    color: #ffffff; /* Match game board text color */
     float: right;
     font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: #aaaaaa;
     text-decoration: none;
-    cursor: pointer;
 }
 
 .modal-content button {
@@ -215,11 +233,11 @@ body {
     font-size: 1rem;
     cursor: pointer;
     border: none;
+    background-color: #5f5aa2; /* Match game board button color */
+    color: #ffffff; /* Match game board text color */
     transition: background-color 0.3s ease;
 }
 
 .modal-content button:hover {
-    background-color: #ddd;
+    background-color: #4d478c; /* Darken button color on hover */
 }
-
-/* Game Board Styles */

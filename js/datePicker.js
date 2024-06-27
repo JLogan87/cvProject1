@@ -1,15 +1,12 @@
 const daySelect = document.getElementById('day');
 const monthSelect = document.getElementById('month');
-const yearSelect = document.getElementById('year');
 
+// Update days in the select based on the selected month
 function updateDays() {
-    daySelect.innerHTML = ''; // Clear existing options
-
     const selectedMonth = monthSelect.value;
-    const selectedYear = yearSelect.value;
+    const daysInMonth = new Date(new Date().getFullYear(), selectedMonth, 0).getDate();
 
-    const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
-
+    daySelect.innerHTML = ''; // Clear existing options
     for (let day = 1; day <= daysInMonth; day++) {
         const option = document.createElement('option');
         option.value = day;
@@ -18,6 +15,7 @@ function updateDays() {
     }
 }
 
+// Populate months in the month select
 function populateMonths() {
     const months = [
         { value: '01', name: 'January' },
@@ -42,23 +40,19 @@ function populateMonths() {
     });
 }
 
-function populateYears() {
-    const currentYear = new Date().getFullYear();
-    const startYear = currentYear - 50;
-
-    for (let year = currentYear; year >= startYear; year--) {
-        const option = document.createElement('option');
-        option.value = year;
-        option.textContent = year;
-        yearSelect.appendChild(option);
-    }
-}
-
+// Setup date picker functionality
 function setupDatePicker() {
     populateMonths();
-    populateYears();
     updateDays();
 
+    // Add event listeners
     monthSelect.addEventListener('change', updateDays);
-    yearSelect.addEventListener('change', updateDays);
+    daySelect.addEventListener('change', () => {
+        const selectedMonth = monthSelect.value;
+        const selectedDay = daySelect.value;
+        fetchFact(selectedMonth, selectedDay);
+    });
 }
+
+// Ensure the DOM is fully loaded before initializing date picker
+document.addEventListener('DOMContentLoaded', setupDatePicker);

@@ -1,16 +1,20 @@
-// Define constants for game settings
 const ROWS = 10;
 const COLS = 10;
 const MINES = 20;
 
-// Game state variables
 let board = [];
 let revealedCells = [];
+let gameEnded = false;
 
-// Initialize game board
+document.addEventListener('DOMContentLoaded', () => {
+    initializeBoard();
+    renderBoard();
+});
+
 function initializeBoard() {
     board = [];
     revealedCells = [];
+    gameEnded = false;
 
     for (let i = 0; i < ROWS; i++) {
         board.push([]);
@@ -26,7 +30,6 @@ function initializeBoard() {
         }
     }
 
-    // Place mines randomly
     let placedMines = 0;
     while (placedMines < MINES) {
         const row = Math.floor(Math.random() * ROWS);
@@ -37,7 +40,6 @@ function initializeBoard() {
         }
     }
 
-    // Calculate neighbor counts
     for (let i = 0; i < ROWS; i++) {
         for (let j = 0; j < COLS; j++) {
             if (board[i][j].hasMine) continue;
@@ -57,9 +59,8 @@ function initializeBoard() {
     }
 }
 
-// Function to reveal cell and check game status
 function revealCell(row, col) {
-    if (row < 0 || row >= ROWS || col < 0 || col >= COLS || revealedCells[row][col]) {
+    if (gameEnded || row < 0 || row >= ROWS || col < 0 || col >= COLS || revealedCells[row][col]) {
         return;
     }
 
@@ -67,43 +68,39 @@ function revealCell(row, col) {
     const cell = board[row][col];
 
     if (cell.hasMine) {
-        // Game over logic
-        console.log('Game over!');
-        // You can add more logic to handle game over state, e.g., showing all mines
+        gameEnded = true;
+        showModal('Game Over', 'You clicked on a mine! Game over.');
     } else {
-        // Check for win condition if all non-mine cells are revealed
-        let allCellsRevealed = true;
-        for (let i = 0; i < ROWS; i++) {
-            for (let j = 0; j < COLS; j++) {
-                if (!board[i][j].hasMine && !revealedCells[i][j]) {
-                    allCellsRevealed = false;
-                    break;
+        if (cell.count === 0) {
+            for (let di = -1; di <= 1; di++) {
+                for (let dj = -1; dj <= 1; dj++) {
+                    revealCell(row + di, col + dj);
                 }
             }
-            if (!allCellsRevealed) break;
-        }
-
-        if (allCellsRevealed) {
-            console.log('You win!');
-            // You can add more logic to handle win state
         }
     }
 
-    // Additional logic to handle revealing neighboring cells if count is 0
-    // Example: recursively reveal neighboring cells if count is 0
-    if (cell.count === 0) {
-        for (let di = -1; di <= 1; di++) {
-            for (let dj = -1; dj <= 1; dj++) {
-                revealCell(row + di, col + dj);
+    let allCellsRevealed = true;
+    for (let i = 0; i < ROWS; i++) {
+        for (let j = 0; j < COLS; j++) {
+            if (!board[i][j].hasMine && !revealedCells[i][j]) {
+                allCellsRevealed = false;
+                break;
             }
         }
+        if (!allCellsRevealed) {
+            break;
+        }
     }
 
-    // Update UI after revealing cell
+    if (allCellsRevealed) {
+        gameEnded = true;
+        showModal('You Win!', 'Congratulations! You revealed all non-mine cells.');
+    }
+
     renderBoard();
 }
 
-// Function to render the game board to the DOM
 function renderBoard() {
     const gameBoard = document.getElementById('gameBoard');
     if (!gameBoard) return;
@@ -126,4 +123,35 @@ function renderBoard() {
     }
 }
 
+function showModal(title, message) {
+    const modal = document.getElementById('gameModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalMessage = document.getElementById('modalMessage');
+    const modalCloseButton = document.querySelector('.close');
 
+    modalTitle.textContent = title;
+    modalMessage.textContent = message;
+
+    modal.style.display = 'block';
+
+    modalCloseButton.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+}
+
+const resetGameButton = document.getElementById('resetGame');
+if (resetGameButton) {
+    resetGameButton.addEventListener('click', () => {
+        const modal = document.getElementById('gameModal');
+        modal.style.display = 'none';
+        initializeBoard();
+        renderBoard();
+    });
+}
+
+window.addEventListener('click', event => {
+    const modal = document.getElementById('gameModal');
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
