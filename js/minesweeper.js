@@ -112,16 +112,30 @@ function renderBoard() {
             const cell = board[i][j];
             const cellDiv = document.createElement('div');
             cellDiv.classList.add('cell');
+
             if (revealedCells[i][j]) {
-                cellDiv.textContent = cell.hasMine ? 'X' : (cell.count === 0 ? '' : cell.count);
+                if (cell.hasMine) {
+                    // Display bomb image instead of text 'X'
+                    const bombImage = document.createElement('img');
+                    bombImage.src = 'bomb.png';
+                    bombImage.alt = 'Bomb';
+                    bombImage.style.width = '100%';  // Set the image width to 100% of the cell
+                    bombImage.style.height = '100%'; // Set the image height to 100% of the cell
+                    cellDiv.appendChild(bombImage);
+                } else {
+                    cellDiv.textContent = cell.count === 0 ? '' : cell.count;
+                }
             } else {
                 cellDiv.textContent = '';
                 cellDiv.addEventListener('click', () => revealCell(i, j));
             }
+
             gameBoard.appendChild(cellDiv);
         }
     }
 }
+
+
 
 function showModal(title, message) {
     const modal = document.getElementById('gameModal');
