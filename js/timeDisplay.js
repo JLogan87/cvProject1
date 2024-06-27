@@ -37,7 +37,7 @@ async function initializeCityTimes() {
 
     // Function to update the time display
     function updateTimeDisplay() {
-        let output = '<h2>Current Times:</h2>';
+        let output = '<h2>Current Time Around The World:</h2>';
         for (const city of cities) {
             if (cityTimes[city.name]) {
                 cityTimes[city.name].setSeconds(cityTimes[city.name].getSeconds() + 1);

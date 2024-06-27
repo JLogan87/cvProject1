@@ -32,10 +32,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.1); /* Faded edge effect */
+    background-color: rgba(255, 255, 255, 0.1);
     padding: 20px;
-    border-radius: 20px; /* Rounded corners */
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Date picker styles */
@@ -81,18 +81,18 @@ body {
 
 /* Fact display styles */
 #fact {
-    width: 100%; /* Span the width of the page */
-    max-width: 900px; /* Limit maximum width */
-    min-height: 100px; 
+    width: 100%;
+    max-width: 900px;
+    min-height: 100px;
     margin-top: 20px;
     padding: 15px;
     background-color: #7b76c8;
     border: 1px solid #ffffff;
-    text-align: center; /* Center the text */
-    overflow: auto; 
-    box-sizing: border-box; 
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: center;
+    overflow: auto;
+    box-sizing: border-box;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #fact h3 {
@@ -119,50 +119,56 @@ body {
 /* Row container for city times and game board */
 .row-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: flex-start;
     width: 100%;
     max-width: 900px;
     margin-top: 20px;
 }
 
-/* Other cities times styles */
-#other-cities-times {
+#other-cities-times, #gameBoard {
     flex: 1;
-    margin-right: 10px;
-    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background-color: #7b76c8;
     border: 1px solid #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 10px; /* Add margin for gap */
+    max-width: calc(50% - 20px); /* Adjusted max-width for equal sizing */
+    height: 320px; /* Set a fixed height to match both boxes */
 }
 
-#other-cities-times h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
+#other-cities-times h2, #gameBoard h2 {
+    font-size: 1.8rem;
     color: #ffffff;
-}
-
-#other-cities-times p {
-    font-size: 1.4rem;
     margin-bottom: 10px;
+}
+
+#other-cities-times p, .cell {
+    font-size: 1.2rem;
     color: #ffffff;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 /* Game Board Styles */
 #gameBoard {
-    flex: 1;
     display: grid;
-    grid-template-columns: repeat(10, 30px); /* 10 columns, each 30px wide */
-    grid-template-rows: repeat(10, 30px);    /* 10 rows, each 30px high */
+    grid-template-columns: repeat(10, 30px);
+    grid-template-rows: repeat(10, 30px);
     gap: 2px;
     background-color: #7b76c8;
     border: 1px solid #ffffff;
-
-    /* Centering the game board */
-    justify-self: center; /* Horizontally center within the parent container */
-    align-self: center;   /* Vertically center within the parent container */
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Game Cell Styles */
 .cell {
     width: 30px;
     height: 30px;
@@ -176,20 +182,9 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.cell.revealed {
-    background-color: #ddd;
-    color: #000;
-    cursor: default;
-}
-
-.cell:hover {
-    background-color: #4d478c;
-}
-
 /* Modal styles */
-
 .modal {
-    display: none; /* Initially hide the modal */
+    display: none;
     position: fixed;
     z-index: 1;
     left: 0;
@@ -198,25 +193,25 @@ body {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
-    background-color: #7b76c8; /* Match game board background color */
+    background-color: #7b76c8;
     color: #ffffff;
     padding: 20px;
     border: 2px solid #ffffff;
     width: 80%;
     max-width: 400px;
     text-align: center;
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for depth */
-    position: relative; /* Ensure position relative for centering */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
 .close {
-    color: #ffffff; /* Match game board text color */
+    color: #ffffff;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -235,11 +230,11 @@ body {
     font-size: 1rem;
     cursor: pointer;
     border: none;
-    background-color: #5f5aa2; /* Match game board button color */
-    color: #ffffff; /* Match game board text color */
+    background-color: #5f5aa2;
+    color: #ffffff;
     transition: background-color 0.3s ease;
 }
 
 .modal-content button:hover {
-    background-color: #4d478c; /* Darken button color on hover */
+    background-color: #4d478c;
 }
