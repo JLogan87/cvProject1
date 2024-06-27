@@ -28,11 +28,11 @@ function fetchFact(month, day) {
 
     let fetchTimeout = setTimeout(() => {
         factDiv.textContent = 'Loading took too long. Please try again.';
-    }, 10000); // Timeout after 10 seconds
+    }, 10000); 
 
     fetchWikipediaEvents(month, day)
         .then(data => {
-            clearTimeout(fetchTimeout); // Clear timeout once data is received
+            clearTimeout(fetchTimeout); 
 
             if (data.events && data.events.length > 0) {
                 const randomEvent = data.events[Math.floor(Math.random() * data.events.length)];
@@ -51,7 +51,7 @@ function fetchFact(month, day) {
             }
         })
         .catch(error => {
-            clearTimeout(fetchTimeout); // Clear timeout in case of error
+            clearTimeout(fetchTimeout); 
 
             console.error('Error fetching and displaying data:', error);
             factDiv.textContent = 'Error fetching data. Please try again later.';

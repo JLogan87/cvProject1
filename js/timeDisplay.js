@@ -1,20 +1,3 @@
-async function fetchCityTime(city) {
-    try {
-        const response = await fetch(`https://worldtimeapi.org/api/timezone/${city.timeZone}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        const utcDateTime = new Date(data.datetime);
-        const localDateTime = new Date(utcDateTime.toLocaleString('en-US', { timeZone: city.timeZone }));
-        return localDateTime;
-    } catch (error) {
-        console.error(`Error fetching time for ${city.name}:`, error);
-        return null;
-    }
-}
-
-
 async function initializeCityTimes() {
     const cities = [
         { name: 'London', timeZone: 'Europe/London' },
@@ -25,17 +8,15 @@ async function initializeCityTimes() {
 
     let cityTimes = {};
 
-    // Fetch the initial time for each city
-    for (const city of cities) {
-        const cityTime = await fetchCityTime(city);
-        if (cityTime) {
-            cityTimes[city.name] = cityTime;
-        } else {
-            cityTimes[city.name] = null;
-        }
+    function getCityTime(city) {
+        const now = new Date();
+        return new Date(now.toLocaleString('en-US', { timeZone: city.timeZone }));
     }
 
-    // Function to update the time display
+    for (const city of cities) {
+        cityTimes[city.name] = getCityTime(city);
+    }
+
     function updateTimeDisplay() {
         let output = '<h2>Current Time Around The World:</h2>';
         for (const city of cities) {
@@ -44,8 +25,8 @@ async function initializeCityTimes() {
                 const formattedTime = cityTimes[city.name].toLocaleTimeString('en-US', {
                     hour: 'numeric',
                     minute: 'numeric',
-                    second: 'numeric', // Ensure seconds are displayed
-                    hour12: true // 12-hour format
+                    second: 'numeric',
+                    hour12: true
                 });
                 output += `<p>${city.name}: ${formattedTime}</p>`;
             } else {
@@ -58,12 +39,8 @@ async function initializeCityTimes() {
         }
     }
 
-    // Initial display
     updateTimeDisplay();
-
-    // Update city times every second
     setInterval(updateTimeDisplay, 1000);
 }
 
-// Call the function to display city times initially
 initializeCityTimes();

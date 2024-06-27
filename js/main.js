@@ -13,7 +13,7 @@ function initialize() {
 
 }
 
-// Ensure the DOM is fully loaded before initializing
+
 document.addEventListener('DOMContentLoaded', initialize);
 
 

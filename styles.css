@@ -1,4 +1,3 @@
-/* Body styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #5f5aa2;
@@ -10,7 +9,6 @@ body {
     align-items: center;
 }
 
-/* Header styles */
 #header {
     text-align: center;
     margin-top: 20px;
@@ -23,7 +21,6 @@ body {
     color: #f0f0f0;
 }
 
-/* Main content container */
 #main-content {
     max-width: 900px;
     width: 100%;
@@ -38,7 +35,6 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Date picker styles */
 #date-picker {
     margin-bottom: 20px;
     text-align: center;
@@ -79,7 +75,6 @@ body {
     background-color: #4d478c;
 }
 
-/* Fact display styles */
 #fact {
     width: 100%;
     max-width: 900px;
@@ -116,7 +111,6 @@ body {
     text-decoration: underline;
 }
 
-/* Row container for city times and game board */
 .row-container {
     display: flex;
     justify-content: space-around;
@@ -137,9 +131,9 @@ body {
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    margin: 10px; /* Add margin for gap */
-    max-width: calc(50% - 20px); /* Adjusted max-width for equal sizing */
-    height: 320px; /* Set a fixed height to match both boxes */
+    margin: 10px;
+    max-width: calc(50% - 20px);
+    height: 320px;
 }
 
 #other-cities-times h2, #gameBoard h2 {
@@ -155,7 +149,6 @@ body {
     margin-bottom: 10px;
 }
 
-/* Game Board Styles */
 #gameBoard {
     display: grid;
     grid-template-columns: repeat(10, 30px);
@@ -182,7 +175,6 @@ body {
     transition: background-color 0.3s ease;
 }
 
-/* Modal styles */
 .modal {
     display: none;
     position: fixed;

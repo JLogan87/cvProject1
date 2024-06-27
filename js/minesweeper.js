@@ -115,12 +115,11 @@ function renderBoard() {
 
             if (revealedCells[i][j]) {
                 if (cell.hasMine) {
-                    // Display bomb image instead of text 'X'
                     const bombImage = document.createElement('img');
                     bombImage.src = 'bomb.png';
                     bombImage.alt = 'Bomb';
-                    bombImage.style.width = '100%';  // Set the image width to 100% of the cell
-                    bombImage.style.height = '100%'; // Set the image height to 100% of the cell
+                    bombImage.style.width = '100%';
+                    bombImage.style.height = '100%';
                     cellDiv.appendChild(bombImage);
                 } else {
                     cellDiv.textContent = cell.count === 0 ? '' : cell.count;
@@ -144,9 +143,8 @@ function showModal(title, message) {
     modalTitle.textContent = title;
     modalMessage.textContent = message;
 
-    modal.style.display = 'flex'; // Ensure modal display is set properly
+    modal.style.display = 'flex';
 
-    // Center the modal vertically and horizontally
     const topOffset = Math.max(window.innerHeight - modal.offsetHeight, 0) / 2;
     const leftOffset = Math.max(window.innerWidth - modal.offsetWidth, 0) / 2;
     modal.style.top = topOffset + 'px';
@@ -173,4 +171,3 @@ window.addEventListener('click', event => {
         modal.style.display = 'none';
     }
 });
-
