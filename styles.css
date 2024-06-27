@@ -25,8 +25,8 @@ body {
 
 /* Main content styles */
 #main-content {
-    max-width: 600px;
-    width: 90%;
+    max-width: 900px;
+    width: 100%;
     margin-top: 20px;
     text-align: center;
 }
@@ -34,6 +34,8 @@ body {
 /* Date picker styles */
 #date-picker {
     margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
 }
 
 #date-picker label {
@@ -70,37 +72,14 @@ body {
     background-color: #4d478c;
 }
 
-/* Calendar styles */
-#calendar {
-    margin-bottom: 10px;
-}
-
-.day {
-    display: inline-block;
-    width: 80px;
-    padding: 8px;
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    background-color: #d1cfd4;
-    color: #5f5aa2;
-    font-size: 1rem;
-}
-
-.day.selected {
-    background-color: #5f5aa2;
-    color: #ffffff;
-}
-
 /* Fact display styles */
 #fact {
+    flex: 1 1 100%;
     margin-top: 20px;
-    text-align: left;
     padding: 15px;
     background-color: #7b76c8;
     border: 1px solid #ffffff;
+    text-align: left;
 }
 
 #fact h3 {
@@ -124,10 +103,20 @@ body {
     text-decoration: underline;
 }
 
+/* Row container for city times and game board */
+.row-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 20px;
+}
+
 /* Other cities times styles */
 #other-cities-times {
-    margin-top: 20px;
-    text-align: left;
+    flex: 1;
+    margin-right: 10px;
     padding: 15px;
     background-color: #7b76c8;
     border: 1px solid #ffffff;
@@ -144,121 +133,16 @@ body {
     margin-bottom: 10px;
     color: #ffffff;
 }
-/* Body styles */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #5f5aa2;
-    color: #ffffff;
-    margin: 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
 
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start; /* Adjust as needed */
-    width: 100%;
-    max-width: 900px; /* Adjust max-width to fit your layout */
-    margin-top: 20px; /* Space between Daily Information header and content */
-}
-
-#other-cities-times,
-
-#gameBoard {
-    width: calc(50% - 10px); /* Adjust width and spacing */
-    padding: 10px;
-    background-color: #7b76c8;
-    border: 1px solid #ffffff;
-}
-
-#other-cities-times {
-    margin-right: 10px;
-}
-
-#gameBoard {
-    margin-left: 10px;
-}
-
-/* Date picker styles */
-#date-picker {
-    margin-top: 20px;
-    text-align: center; /* Adjust as needed */
-}
-
-#date-picker label {
-    display: inline-block;
-    width: 70px;
-    text-align: right;
-    margin-right: 10px;
-    color: #f0f0f0;
-}
-
-#date-picker select {
-    width: 100px;
-    padding: 5px;
-    font-size: 1rem;
-    margin-right: 10px;
-    border: 1px solid #ffffff;
-    background-color: #7b76c8;
-    color: #ffffff;
-}
-
-#date-picker button {
-    padding: 8px 20px;
-    background-color: #5f5aa2;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.3s ease;
-    margin-top: 10px;
-}
-
-#date-picker button:hover {
-    background-color: #4d478c;
-}
-
-/* Fact display styles */
-#fact {
-    margin-top: 20px;
-    text-align: left;
-    padding: 10px;
-    background-color: #7b76c8;
-    border: 1px solid #ffffff;
-}
-
-#fact h3 {
-    font-size: 1.5rem;
-    margin-bottom: 5px;
-    color: #ffffff;
-}
-
-#fact p {
-    font-size: 1.2rem;
-    color: #ffffff;
-}
-
-#fact a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-#fact a:hover {
-    text-decoration: underline;
-}
 /* Game Board Styles */
 #gameBoard {
+    flex: 1;
     display: grid;
     grid-template-columns: repeat(10, 30px); /* 10 columns, each 30px wide */
     grid-template-rows: repeat(10, 30px);    /* 10 rows, each 30px high */
     gap: 2px;
     background-color: #7b76c8;
     border: 1px solid #ffffff;
-    margin-top: 20px;
-    margin-left: 10px;
 }
 
 /* Game Cell Styles */
@@ -272,6 +156,7 @@ body {
     background-color: #5f5aa2;
     color: #ffffff;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .cell.revealed {
@@ -279,3 +164,62 @@ body {
     color: #000;
     cursor: default;
 }
+
+.cell:hover {
+    background-color: #4d478c;
+}
+/* Modal Styles */
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content button {
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #ddd;
+}
+
+/* Game Board Styles */

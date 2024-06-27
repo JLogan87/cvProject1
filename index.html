@@ -3,31 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Date Picker with World Times and Fact Fetcher</title>
+    <title>Daily Information and Game</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Daily Information</h1>
-    
-    <div class="container">
-        <div id="other-cities-times"></div>
-        <div id="gameBoard"></div>
+    <div id="header">
+        <h1>Daily Information and Game</h1>
     </div>
+    <div id="main-content">
+        <div id="date-picker">
+            <label for="day">Day:</label>
+            <select id="day"></select>
 
-    <div id="date-picker">
-        <label for="day">Day:</label>
-        <select id="day"></select>
+            <label for="month">Month:</label>
+            <select id="month" onchange="updateDays()"></select>
 
-        <label for="month">Month:</label>
-        <select id="month" onchange="updateDays()"></select>
-
-        <label for="year">Year:</label>
-        <select id="year" onchange="updateDays()"></select>
+            <label for="year">Year:</label>
+            <select id="year" onchange="updateDays()"></select>
                 
-        <button onclick="fetchFact()">Fetch Fact</button>
+            <button onclick="fetchFact()">Fetch Fact</button>
+        </div>
+
+        <div id="fact">
+            <h3>Fact of the Day</h3>
+            <p>Interesting fact goes here.</p>
+        </div>
+        
+        <div class="row-container">
+            <div id="other-cities-times">
+                <h2>Other Cities Times</h2>
+                <p>City time information goes here.</p>
+            </div>
+            <div id="gameBoard" class="game-board"></div>
+        </div>
     </div>
 
-    <div id="fact"></div>
+    <!-- Modal Structure -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalMessage"></p>
+            <button id="resetGame">Reset Game</button>
+            <button id="closeModal">Close</button>
+        </div>
+    </div>
 
     <script src="js/datePicker.js"></script>
     <script src="js/fetchFact.js"></script>
